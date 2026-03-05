@@ -47,7 +47,7 @@ public class StepDefination {
     
     
     //SideMenuOption
-    
+    //sideMenuVisibility
     @Given("Admin login into the portal using {string} , {string} and gets to dashboard")
     public void admin_login_into_the_portal(String username, String password) {
     	
@@ -76,17 +76,18 @@ public class StepDefination {
     }
     	
     //verifySideMenuPageTitle
-    @Given("User logs into the admin account {string}, {string} and lands on the dashboard page")
+  /* @Given("User logs into the admin account {string}, {string} and lands on the dashboard page")
     public void user_logs_into_the_admin_account_and_lands_on_the_dashboard_page(String string, String string2) {
        loginpage = new loginPage(driver);
        loginpage.login(string, string2);
        
        sideMenuElement= new SideMenuElementDashboard(driver);
        
-    }
+    }*/
 
     @When("Admin clicks on the {string}")
     public void admin_clicks_on_the(String elementText) {
+    	sideMenuElement= new SideMenuElementDashboard(driver);
      
     	sideMenuElement.clickonSideMenuElement(elementText);
     	
@@ -103,9 +104,9 @@ public class StepDefination {
     //SearchSideMenuElement
     //The Given step will same in the previous methods so no need to write this again.
     
-    @When("Admin searches on the {string}")
-    public void admin_searches_on_the(By element, String enterOption) {
-    	sideMenuElement.searchSideMenuOption(element, enterOption);
+    @When("Admin search on the {string}")
+    public void admin_searches_on_the(String enterOption) {
+    	sideMenuElement.searchSideMenuOption(enterOption);
     }
 
     @Then("Search should show the following {string}")

@@ -2,6 +2,7 @@ package pageObjectModel;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.support.ui.ExpectedConditions;
 
 import utilities.webUtils;
 
@@ -9,6 +10,8 @@ public class loginPage {
 
 	WebDriver driver;
 	webUtils utils;
+	WebDriver wait;
+	
 	
 	//Constructor driver ko page class ke andar inject karta hai.
 	//Tumhare framework mein:
@@ -38,8 +41,9 @@ public class loginPage {
 	public void login(String Username, String Password) {
 		utils.enterText(username_loc, Username);
 		utils.enterText(password_loc, Password);
-		utils.clickElement(login_btn);
+	    utils.clickElement(login_btn);
 	}
+
 	public void getPageTitle() {
 		System.out.print(utils.extractPageTitle());
 	}

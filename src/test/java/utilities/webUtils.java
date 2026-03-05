@@ -27,7 +27,9 @@ public class webUtils{
 	 }
 	
 	public  void enterText(By element, String text) {
-		driver.findElement(element).sendKeys(text);
+		WebElement ele= wait.until(ExpectedConditions.visibilityOfElementLocated(element));
+		ele.clear();
+		ele.sendKeys(text);
 	}
 	
 	public  void clickElement(By elementText) {
@@ -37,19 +39,7 @@ public class webUtils{
 	public  String extractPageTitle() {
 		return driver.getTitle();
 	}
-	
-	public void clickSideMenuElement(String elementName) {
 		
-		By locator= By.xpath("//*[text()='"+elementName+"']");
-		 wait.until(ExpectedConditions.elementToBeClickable(locator)).click();
-	}
-	
-	
-	public String getSideMenuPageHeader(String text) {
-	    By header = By.xpath("//h6[contains(@class,'oxd-topbar-header-breadcrumb-module')]");
-		return wait.until(ExpectedConditions.visibilityOfElementLocated(header)).getText().trim();
-	}
-	
 	public String getText(By element) {
 		
 		return wait.until(ExpectedConditions.visibilityOfElementLocated(element)).getText().trim();

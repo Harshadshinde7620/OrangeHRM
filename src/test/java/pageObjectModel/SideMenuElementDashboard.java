@@ -1,27 +1,32 @@
 package pageObjectModel;
 
+import java.time.Duration;
+
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
 
 import utilities.webUtils;
 
 public class SideMenuElementDashboard {
 		
-		//We are going to use the create locator with text method from webutilities
+		//We are going to use the create locator with text method from web utilities
 		
 		private WebDriver driver;
 		private webUtils utils;
+		private WebDriverWait wait; 
 		
 		
-		By placeholder_loc=By.xpath("//input[@placeholder='Search']");
+		By searchPlaceholder_loc=By.xpath("//input[@placeholder='Search']");
 		By searchedElement_loc= By.xpath("//span[contains(@class,'oxd-text oxd-text--span oxd-main-menu-item--name')]");
 		
 		//Constructor
 		public SideMenuElementDashboard(WebDriver driver) {
 			this.driver= driver;
 			this.utils= new webUtils(driver);
-			
+		    this.wait = new WebDriverWait(driver, Duration.ofSeconds(20));
 			}
 		//ActionMethods
 		
@@ -32,16 +37,18 @@ public class SideMenuElementDashboard {
 		}
 
 		public String verifyPageTitelofSideMenuElement(String text) {
-			return utils.getSideMenuPageHeader(text);
+			By header = By.xpath("//h6[contains(@class,'oxd-topbar-header-breadcrumb-module')]");
+			return wait.until(ExpectedConditions.visibilityOfElementLocated(header)).getText().trim();
 		}
 		
-		public void clickonSideMenuElement(String elementText) {
-			utils.clickSideMenuElement(elementText);
+		public void clickonSideMenuElement(String elementName) {
+			By locator= By.xpath("//span[contains(@class, 'oxd-text oxd-text--span oxd-main-menu-item--name') and normalize-space()= '"+elementName+"']");
+			 wait.until(ExpectedConditions.elementToBeClickable(locator)).click();
+		}
+		
+		public void searchSideMenuOption(String text) {
+			driver.findElement(searchPlaceholder_loc).sendKeys(text);
 			
-		}
-		
-		public void searchSideMenuOption(By element, String text) {
-			utils.enterText(placeholder_loc, text);
 		}
 		
 		public String extractSearchedSideMenuOption(String text) {
