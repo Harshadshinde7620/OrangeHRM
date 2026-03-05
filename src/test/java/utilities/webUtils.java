@@ -1,0 +1,90 @@
+package utilities;
+
+import java.time.Duration;
+
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
+import org.testng.Assert;
+
+import stepDefinations.hooks;
+
+
+public class webUtils{
+
+	 WebDriver driver;
+	 WebDriverWait wait; 
+	 
+	 //To inject the WebDriver dependency into the utility class so that all utility methods operate on the same browser session and to maintain loose coupling and scalability in the framework.
+	
+	 //constructor
+	 
+	 public webUtils(WebDriver driver) {
+		 this.driver= driver;
+		 this.wait= new WebDriverWait(driver,Duration.ofSeconds(30));
+	 }
+	
+	public  void enterText(By element, String text) {
+		driver.findElement(element).sendKeys(text);
+	}
+	
+	public  void clickElement(By elementText) {
+		driver.findElement(elementText).click();
+	}
+	
+	public  String extractPageTitle() {
+		return driver.getTitle();
+	}
+	
+	public void clickSideMenuElement(String elementName) {
+		
+		By locator= By.xpath("//*[text()='"+elementName+"']");
+		 wait.until(ExpectedConditions.elementToBeClickable(locator)).click();
+	}
+	
+	
+	public String getSideMenuPageHeader(String text) {
+	    By header = By.xpath("//h6[contains(@class,'oxd-topbar-header-breadcrumb-module')]");
+		return wait.until(ExpectedConditions.visibilityOfElementLocated(header)).getText().trim();
+	}
+	
+	public String getText(By element) {
+		
+		return wait.until(ExpectedConditions.visibilityOfElementLocated(element)).getText().trim();
+		
+	}
+	
+	public void createLocatorWithText(By elementText) {
+		
+		String locator= "//*[text()='"+elementText+"']";
+		
+	}
+	
+	public WebElement getSideMenuElementWithText(String text) {
+		/*By elementLocator= By.xpath("//span[normalize-space(text())='"+ text + "']");
+		return wait.until(ExpectedConditions.visibilityOfElementLocated(elementLocator));*/
+		By elementLocator= By.xpath("//span[contains(@class,'oxd-main-menu-item--name') and normalize-space(.)='" + text + "']");
+		return wait.until(ExpectedConditions.visibilityOfElementLocated(elementLocator));
+	}
+	
+	public void verifyGivenText(String text) {
+		
+		
+		String ActualText= driver.findElement(By.xpath("//*[text()='"+text+"']")).getText().trim();
+		
+		Assert.assertEquals(ActualText, text);
+	}
+	
+	public void verifyContainsText(String text) {
+		
+		
+		String ActualText= driver.findElement(By.xpath("//*[contains(text(),'"+text+"')]")).getText().trim();
+		
+		Assert.assertTrue(ActualText.contains(text));
+	}
+
+
+
+}

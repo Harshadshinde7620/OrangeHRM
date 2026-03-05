@@ -1,0 +1,23 @@
+package testRunner;
+
+import io.cucumber.testng.AbstractTestNGCucumberTests;
+import io.cucumber.testng.CucumberOptions;
+
+@CucumberOptions(
+		features= "/Users/xenneotech/eclipse-workspace/OrangeHRMProject/src/test/java/features", 
+		glue= "stepDefinations",
+		tags="@SearchSideMenuElement",
+		plugin={
+				"pretty",                                    			// Console output
+		        "html:target/cucumber-reports-@SearchSideMenuElement.html",  // HTML report
+		        "json:target/cucumber.json",                			// JSON report
+		        "junit:target/cucumber.xml"     },
+		monochrome = true,                               // Clean console output
+	    dryRun = false                                   // Check for missing step definitions
+	)
+		
+public class TestRunner extends AbstractTestNGCucumberTests{
+
+	
+	
+}
