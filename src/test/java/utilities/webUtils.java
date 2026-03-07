@@ -1,6 +1,8 @@
 package utilities;
 
 import java.time.Duration;
+import java.util.ArrayList;
+import java.util.List;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
@@ -75,6 +77,21 @@ public class webUtils{
 		Assert.assertTrue(ActualText.contains(text));
 	}
 
+	public List<WebElement> getListOfElements(By locator) {
+		
+		List<WebElement> elementList= driver.findElements(locator);
+		return elementList;
+		
+	}
 
-
+	public List<String> getTextFromList(By Locator){
+		
+		List<WebElement> elementList= driver.findElements(Locator);
+		List<String> texts= new ArrayList<>();
+		
+		for(WebElement elements:elementList) {
+			texts.add(elements.getText());
+		}
+		return texts;
+	}
 }

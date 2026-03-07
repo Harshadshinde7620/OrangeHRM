@@ -48,17 +48,48 @@ Feature: Dashboard side menu validations
     When Admin search on the "<enterOption>"
     Then Search should show the following "<gotOption>"
 
+    @FullSearchText
     Examples: 
-      | enterOption | gotOption |
-      | admin       | Admin     |
+      #| enterOption | gotOption   |
+      #| admin       | Admin       |
       #| pim         | PIM         |
       #| leave       | Leave       |
       #| time        | Time        |
       #| recruitment | Recruitment |
-      #| my Info     | PIM         |
+      #| my Info     | My Info     |
       #| performance | Performance |
       #| dashboard   | Dashboard   |
       #| directory   | Directory   |
       #| maintenance | Maintenance |
       #| claim       | Claim       |
       #| buzz        | Buzz        |
+
+    @PartialSearchText
+    Examples: 
+      #| enterOption | gotOption   |
+      #| ad          | Admin       |
+      #| pi          | PIM         |
+      #| lea         | Leave       |
+      #| ime         | Time        |
+      #| ment        | Recruitment |
+      
+    @InsensitiveSearchText
+    Examples: 
+      | enterOption | gotOption   |
+      | adMIn       | Admin       |
+      | pIm         | PIM         |
+      | LeaVE       | Leave       |
+      | tIME        | Time        |
+      | reCRuiTMent | Recruitment |
+      
+   @BlankSearchText
+  	Scenario Outline: Blank search for side menu option and verifies the option
+    Given Admin login into the portal using "Admin" , "admin123" and gets to dashboard
+    When Admin blank search on the "<enterOption>"
+    Then Search should show "<list>" of the options 
+    Examples: 
+      #| enterOption | list   |
+      #|           	|   Admin, PIM, Leave, Time, Recruitment, My Info, Performance, Dashboard, Directory, Maintenance, Claim, Buzz     			|
+      
+      
+      

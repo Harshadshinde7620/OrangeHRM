@@ -1,6 +1,7 @@
 package pageObjectModel;
 
 import java.time.Duration;
+import java.util.List;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
@@ -21,6 +22,8 @@ public class SideMenuElementDashboard {
 		
 		By searchPlaceholder_loc=By.xpath("//input[@placeholder='Search']");
 		By searchedElement_loc= By.xpath("//span[contains(@class,'oxd-text oxd-text--span oxd-main-menu-item--name')]");
+		By combineMenuOptions_loc= By.xpath("//span[@class='oxd-text oxd-text--span oxd-main-menu-item--name']");
+		
 		
 		//Constructor
 		public SideMenuElementDashboard(WebDriver driver) {
@@ -47,13 +50,20 @@ public class SideMenuElementDashboard {
 		}
 		
 		public void searchSideMenuOption(String text) {
-			driver.findElement(searchPlaceholder_loc).sendKeys(text);
+			//By searchPlaceholder_loc= By.xpath("//input[@placeholder='Search']");
+			wait.until(ExpectedConditions.presenceOfElementLocated(searchPlaceholder_loc)).sendKeys(text);
 			
 		}
 		
 		public String extractSearchedSideMenuOption(String text) {
 			return utils.getText(searchedElement_loc);
 		}
+		
+		public List<String> getListofMenuOptions(){
+			return utils.getTextFromList(combineMenuOptions_loc);
+
+		}
+
 }
 
 

@@ -9,7 +9,7 @@ import io.cucumber.testng.CucumberOptions;
 		tags="@SearchSideMenuElement",
 		plugin={
 				"pretty",                                    			// Console output
-		        "html:target/cucumber-reports-@SearchSideMenuElement.html",  // HTML report
+		        "html:target/cucumber-reports-@SearchSideMenuElementInsensitiveSearchText.html",  // HTML report
 		        "json:target/cucumber.json",                			// JSON report
 		        "junit:target/cucumber.xml"     },
 		monochrome = true,                               // Clean console output

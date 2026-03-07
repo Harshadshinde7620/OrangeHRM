@@ -1,5 +1,9 @@
 package stepDefinations;
 
+import java.util.Arrays;
+import java.util.List;
+import java.util.stream.Collectors;
+
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.testng.Assert;
@@ -114,6 +118,25 @@ public class StepDefination {
     	String expectedSerachedOption= sideMenuElement.extractSearchedSideMenuOption(gotOption);
     	Assert.assertEquals(expectedSerachedOption, gotOption, "provided and searched option are missmatch");
     	
+    }
+
+    //BlankSearch
+    
+    @When("Admin blank search on the {string}")
+    public void admin_blank_search_on_the(String enterOption) {
+    	sideMenuElement.searchSideMenuOption(enterOption);
+    }
+   
+    @Then("Search should show {string} of the options")
+    public void search_should_show_of_the_options(String list) {
+
+    	List<String> actualList= sideMenuElement.getListofMenuOptions();
+    	List<String> expectedList= 
+    			Arrays.stream(list.split(","))
+    			.map(String::trim)
+    			.collect(Collectors.toList());
+    			
+    	Assert.assertEquals(expectedList, actualList, "expected and actual list are mismatched");
     }
 
 }
