@@ -42,7 +42,7 @@ public class hooks {
 	public void teardown() {
 			System.out.println("I am outside the application");
 			if(driver != null) {
-				driver.quit();
+				//driver.quit();
 			}
 		}
 	

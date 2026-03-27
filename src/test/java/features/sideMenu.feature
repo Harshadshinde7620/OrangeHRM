@@ -65,7 +65,7 @@ Feature: Dashboard side menu validations
       #| buzz        | Buzz        |
 
     @PartialSearchText
-    Examples: 
+   # Examples: 
       #| enterOption | gotOption   |
       #| ad          | Admin       |
       #| pi          | PIM         |
@@ -82,7 +82,7 @@ Feature: Dashboard side menu validations
       | tIME        | Time        |
       | reCRuiTMent | Recruitment |
       
-   @BlankSearchText
+   @BlankSearchText 
   	Scenario Outline: Blank search for side menu option and verifies the option
     Given Admin login into the portal using "Admin" , "admin123" and gets to dashboard
     When Admin blank search on the "<enterOption>"
@@ -90,6 +90,16 @@ Feature: Dashboard side menu validations
     Examples: 
       #| enterOption | list   |
       #|           	|   Admin, PIM, Leave, Time, Recruitment, My Info, Performance, Dashboard, Directory, Maintenance, Claim, Buzz     			|
-      
-      
+     
+   @VisibilityofSideMenuAndItsOption
+   	Scenario Outline: Visibility of side menu option and verifies the option
+    Given Admin login into the portal using "Admin" , "admin123" and gets to dashboard
+    When Admin looks for the "<list>"
+    Then Search should show "<list>"
+    Examples: 
+     | list   |
+     | Admin, PIM, Leave, Time, Recruitment, My Info, Performance, Dashboard, Directory, Maintenance, Claim, Buzz|
+     
+    
+       
       

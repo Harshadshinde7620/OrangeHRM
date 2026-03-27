@@ -28,14 +28,15 @@ public class webUtils{
 		 this.wait= new WebDriverWait(driver,Duration.ofSeconds(30));
 	 }
 	
-	public  void enterText(By element, String text) {
+	public void enterText(By element, String text) {
 		WebElement ele= wait.until(ExpectedConditions.visibilityOfElementLocated(element));
 		ele.clear();
 		ele.sendKeys(text);
 	}
 	
-	public  void clickElement(By elementText) {
-		driver.findElement(elementText).click();
+	public void clickElement(By elementText) {
+		wait.until(ExpectedConditions.elementToBeClickable(elementText)).click();
+	
 	}
 	
 	public  String extractPageTitle() {
@@ -60,6 +61,21 @@ public class webUtils{
 		By elementLocator= By.xpath("//span[contains(@class,'oxd-main-menu-item--name') and normalize-space(.)='" + text + "']");
 		return wait.until(ExpectedConditions.visibilityOfElementLocated(elementLocator));
 	}
+	
+	public WebElement getDashBoardElementWithText(String text) {
+		
+		By locator = By.xpath("//p[normalize-space()='" + text + "']");
+		return wait.until(ExpectedConditions.presenceOfElementLocated(locator));
+		
+	}
+	
+	public String getAdminPageHeader() {
+		By locator= By.xpath("//h6[contains(@class,'oxd-text oxd-text--h6 oxd-topbar-header-breadcrumb-module')]");
+		wait.until(ExpectedConditions.visibilityOfElementLocated(locator));
+	
+		return driver.findElement(locator).getText().trim();
+	}
+	
 	
 	public void verifyGivenText(String text) {
 		

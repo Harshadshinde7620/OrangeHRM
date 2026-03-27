@@ -8,18 +8,33 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.testng.Assert;
 
+import io.cucumber.datatable.DataTable;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
-import pageObjectModel.loginPage;
-import pageObjectModel.SideMenuElementDashboard;
+import pageobjectmodel.SideMenuElementDashboard;
+import pageobjectmodel.loginPage;
+import pageobjectmodel.dashboard.BuzzLatestPosts;
+import pageobjectmodel.dashboard.MyActions;
+import pageobjectmodel.dashboard.QuickLaunch;
+import pageobjectmodel.dashboard.TimeAtWorkWidget;
 import utilities.webUtils;
 
 public class StepDefination {
 	
 	private WebDriver driver= hooks.driver;
 	private loginPage loginpage;
+	private List<String> expectedlist;
+	
 	private SideMenuElementDashboard sideMenuElement;
+	
+	private TimeAtWorkWidget tawWidget;
+	
+	private MyActions myactions;
+	
+	private QuickLaunch quickLaunch;
+	
+	private BuzzLatestPosts buzzLatestPosts;
 	
 	//Constructor
 	
@@ -78,17 +93,7 @@ public class StepDefination {
         		sideMenuElement.verifyPresenceofElement(text).isDisplayed()
         );
     }
-    	
-    //verifySideMenuPageTitle
-  /* @Given("User logs into the admin account {string}, {string} and lands on the dashboard page")
-    public void user_logs_into_the_admin_account_and_lands_on_the_dashboard_page(String string, String string2) {
-       loginpage = new loginPage(driver);
-       loginpage.login(string, string2);
-       
-       sideMenuElement= new SideMenuElementDashboard(driver);
-       
-    }*/
-
+ 
     @When("Admin clicks on the {string}")
     public void admin_clicks_on_the(String elementText) {
     	sideMenuElement= new SideMenuElementDashboard(driver);
@@ -138,5 +143,109 @@ public class StepDefination {
     			
     	Assert.assertEquals(expectedList, actualList, "expected and actual list are mismatched");
     }
+
+    
+    //Visibility of side Menu
+    
+    @When("Admin looks for the {string}")
+    public void admin_looks_for_the(String list) {
+    	List<String> expectedList= 
+    			Arrays.stream(list.split(","))
+    			.map(String::trim)
+    			.collect(Collectors.toList());
+    }
+
+    @Then("Search should show {string}")
+    public void search_should_show(String list) {
+    	List<String> actualList=sideMenuElement.getListofMenuOptions();
+    	
+    	Assert.assertEquals(actualList, expectedlist, "expected and actual list are mismatched");
+    	
+    }
+    
+    //DashBoard Pages
+    
+    //TimeAtWorkWidget
+    
+    @Given("Admin logs into the OrangeHRM portal using {string} , {string}")
+    public void admin_logs_into_the_orange_hrm_portal_using(String username, String password) {
+
+    	System.out.println("Username recieved: " + username);
+    	System.out.println("Password recieved: " + password);
+    	
+    	loginpage = new loginPage(driver);
+    	loginpage.login(username, password);
+    }
+    
+    @When("Admin navigates to the dashboard page")
+    public void admin_navigates_to_the_dashboard_page() {
+      
+    }
+    
+    
+    @Then("{string} widget should be visible")
+    public void widget_should_be_visible(String string) {
+ 	tawWidget = new TimeAtWorkWidget(driver);
+    	Assert.assertTrue(tawWidget.checkTAWWidgetVisibility(string));
+    }
+    
+    //TimeAtWorkWidgetStopWatchPage
+    
+    @Then("Admin clicks on the stopwatch and gets to Attendance page.")
+    public void admin_clicks_on_the_stopwatch_and_gets_to_Attendance_page() {
+    	tawWidget = new TimeAtWorkWidget(driver);
+    	tawWidget.clickOnTAWStopWatch();
+    }
+    
+    //MyActionsWidgetVIsibility
+    
+    @Then("{string} widget must be visible")
+    public void my_actions_widget_must_be_visible(String text) {
+    	myactions= new MyActions(driver);
+    	Assert.assertTrue(myactions.myActionsWidgetVisibility(text));
+    }
+    
+    //MyActionsWidgetLink1Page
+    @Then("Admin verfies the page title to be Performance page upon click of link1")
+    public void admin_verfies_the_page_title_to_be_performance_page_upon_click_of_link1() {
+       myactions= new MyActions (driver);
+       myactions.verfiyPageTitleofMyActionsWidgetLink1Page();
+    }
+    
+    //QuicklaunceWidgetVisibility
+    @Then("{string} widget is visible")
+    public void widget_is_visible(String widgetName) {
+       quickLaunch = new QuickLaunch(driver);
+       quickLaunch.quickLaunchWidgetVisibility(widgetName);   
+    }
+   
+    @Then("Admin verfies {string} and its {string} of the widget")
+    public void admin_verfies_and_its_of_the_widget(String links, String pageTitles) {
+    	quickLaunch= new QuickLaunch(driver);
+    	quickLaunch.quickLaunchWidgetClickablelinks();
+    	quickLaunch.quickLaunchLinksPageTitles(links, pageTitles);
+    	
+    }
+    
+    //BuzzLatestPostWidgetVisibility
+    @Then("Verify visibility of {string} widget")
+    public void verify_visibility_of_widget(String widgetName) {
+    	buzzLatestPosts= new BuzzLatestPosts(driver);
+    	buzzLatestPosts.BuzzLatestPostWidgetVisibility(widgetName);
+    }
+    
+    //BuzzLatestPostWidgetClickableLinks
+    @Then("Verify number of clickable links in {string} widget is {int}")
+    public void verify_number_of_clickable_links_in_widget(String widgetName, int expectedCount) {
+    	buzzLatestPosts= new BuzzLatestPosts(driver);
+    	buzzLatestPosts.BuzzLatestPostWidgetClickableLinks();
+    }
+    
+    @Then("Verify {string} is present as clickable user in Buzz Latest Posts widget")
+    public void verify_clickable_usernames(String userName) {
+    	buzzLatestPosts= new BuzzLatestPosts(driver);
+    	buzzLatestPosts.BuzzLatestPostWidgetClickableLinksAlongWithUsernames(userName);
+    }
+
 
 }

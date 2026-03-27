@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="Cucumber" time="49.236" tests="1" skipped="0" failures="0" errors="0">
+<testcase classname="Dashboard functionality" name="Verify number of clickable links in Buzz Latest Posts widget" time="48.896">
+<system-out><![CDATA[
+Given Admin logs into the OrangeHRM portal using "Admin" , "admin123".......passed
+And Admin navigates to the dashboard page...................................passed
+Then Verify number of clickable links in "Buzz Latest Posts" widget is 5....passed
+]]></system-out>
+</testcase>
+</testsuite>
