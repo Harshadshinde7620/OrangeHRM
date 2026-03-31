@@ -1,6 +1,8 @@
 # OrangeHRM Test Automation Framework
 
-A robust **Selenium WebDriver** automation framework built with **Java, TestNG, and Maven**, following the **Page Object Model (POM)** design pattern. This framework automates functional and regression test scenarios for the [OrangeHRM](https://opensource-demo.orangehrmlive.com/) web application.
+A robust **Selenium WebDriver + Cucumber BDD** automation framework built with **Java, TestNG, and Maven**, following the **Page Object Model (POM)** design pattern. Test scenarios are written in **Gherkin** (plain English), making them readable by both technical and non-technical stakeholders.
+
+Built on the live demo site: [https://opensource-demo.orangehrmlive.com/](https://opensource-demo.orangehrmlive.com/)
 
 ---
 
@@ -10,11 +12,12 @@ A robust **Selenium WebDriver** automation framework built with **Java, TestNG, 
 |---|---|
 | Language | Java |
 | Automation Tool | Selenium WebDriver |
-| Test Framework | TestNG |
+| BDD Framework | Cucumber |
+| Test Runner | TestNG |
 | Build Tool | Maven |
 | Design Pattern | Page Object Model (POM) |
 | Configuration | config.properties |
-| Reporting | TestNG HTML Reports |
+| Reporting | Cucumber HTML Reports |
 | IDE | Eclipse |
 | Version Control | Git & GitHub |
 
@@ -23,50 +26,67 @@ A robust **Selenium WebDriver** automation framework built with **Java, TestNG, 
 ## 📁 Framework Architecture
 
 ```
-OrangeHRM/
+OrangeHRMProject/
 │
 ├── src/
 │   └── test/
 │       └── java/
-│           ├── pages/           # Page Object classes (element locators + page actions)
-│           ├── tests/           # TestNG test classes
-│           └── utilities/       # Reusable utilities (BaseClass, config reader, etc.)
+│           ├── features/                  # Gherkin feature files
+│           │   ├── login.feature
+│           │   ├── dashboard.feature
+│           │   └── sideMenu.feature
+│           ├── pageObjectModel/           # Page Object classes
+│           │   ├── loginPage.java
+│           │   ├── AdminPage.java
+│           │   ├── SideMenuElementDashboard.java
+│           │   └── dashboard/             # Dashboard widget page objects
+│           ├── stepDefinations/           # Cucumber step definitions
+│           │   ├── StepDefination.java
+│           │   └── hooks.java
+│           ├── testRunner/                # TestNG Cucumber runner
+│           │   └── TestRunner.java
+│           └── utilities/                 # Reusable utilities
+│               └── webUtils.java
 │
-├── testdata/                    # Test data files (Excel / properties)
-├── config/
-│   └── config.properties        # Browser, URL, and credential configs
-├── test-output/                 # Auto-generated TestNG HTML reports
-└── pom.xml                      # Maven dependencies and plugin config
+├── config.properties                      # Browser, URL, credential configs
+└── pom.xml                                # Maven dependencies
 ```
 
 ---
 
-## ✅ Modules Automated
+## ✅ Modules & Scenarios Automated
 
-### 1. Login / Authentication
-- Valid login with correct credentials
-- Invalid login with wrong password
-- Invalid login with wrong username
-- Empty field validations
-- Successful logout
+### 1. Login / Authentication (`login.feature`)
+```gherkin
+Scenario: Valid login with correct credentials
+Scenario: Invalid login with wrong password
+Scenario: Invalid login with wrong username
+```
 
-### 2. PIM – Personal Information Management
-- Add new employee
-- Search employee by name / ID
-- Verify employee details on the list
-- Edit employee information
-- Delete employee record
+### 2. Dashboard Widgets (`dashboard.feature`)
+```gherkin
+Scenario: Verify Time At Work widget visibility and stopwatch
+Scenario: Verify Quick Launch widget visibility and clickable links
+Scenario: Verify My Actions widget visibility and links
+Scenario: Verify Buzz Latest Posts widget visibility and links
+```
+
+### 3. Side Menu Navigation (`sideMenu.feature`)
+```gherkin
+Scenario: Verify visibility of side menu and its options
+Scenario: Search side menu element by exact text
+Scenario: Search side menu element by partial text
+Scenario: Search side menu element by case-insensitive text
+Scenario: Search side menu element with blank search text
+```
 
 ---
 
 ## ⚙️ Prerequisites
 
-Make sure you have the following installed before running the framework:
-
 - Java JDK 8 or higher
 - Maven 3.x
 - Google Chrome (latest)
-- ChromeDriver (matching your Chrome version, or use WebDriverManager)
 - Eclipse IDE (or IntelliJ IDEA)
 
 ---
@@ -80,7 +100,7 @@ cd OrangeHRM
 ```
 
 ### Step 2 – Configure the Application
-Open `config/config.properties` and set your values:
+Open `config.properties` and verify the values:
 ```properties
 browser=chrome
 url=https://opensource-demo.orangehrmlive.com/
@@ -94,38 +114,34 @@ mvn clean test
 ```
 
 ### Step 4 – View the Test Report
-After execution, open the following file in your browser:
-```
-test-output/index.html
-```
+After execution, open the Cucumber HTML report generated inside the `target/` folder in your browser.
 
 ---
 
 ## 📊 Sample Test Report
 
-> TestNG HTML report showing execution results across Login and PIM modules.
-> *(Add a screenshot of your test-output/index.html here)*
+> *(Add a screenshot of your Cucumber HTML report here after a test run)*
 
 ---
 
 ## 🔑 Key Framework Features
 
-- **Page Object Model (POM):** Each page has a dedicated class with element locators and actions, keeping test logic separate from UI logic.
-- **config.properties:** All environment-specific values (URL, credentials, browser) are externalized — no hardcoded values in test code.
-- **Reusable Base Class:** Common setup and teardown logic (WebDriver init, browser launch, driver quit) is centralized in a BaseClass.
-- **TestNG Annotations:** Tests are organized using `@BeforeClass`, `@AfterClass`, `@Test` for clean execution flow.
-- **Maven Build Management:** All dependencies managed via `pom.xml` — no manual jar downloads needed.
+- **Cucumber BDD (Gherkin):** Test scenarios written in plain English using Given/When/Then syntax — readable by developers, testers, and business stakeholders alike.
+- **Page Object Model (POM):** Each page has a dedicated class separating UI locators from test logic, making the framework highly maintainable.
+- **Hooks:** `@Before` and `@After` hooks manage WebDriver setup and teardown cleanly before and after each scenario.
+- **config.properties:** All environment-specific values are externalized — no hardcoded values in test code.
+- **Maven Build Management:** All dependencies managed via `pom.xml` for easy setup on any machine.
 
 ---
 
 ## 🗺️ Upcoming Improvements
 
-- [ ] Integrate **Extent Reports** with screenshots on test failure
-- [ ] Add **Data-Driven Testing** using Excel + TestNG DataProvider
-- [ ] Add **REST Assured API automation** for OrangeHRM APIs
-- [ ] Set up **GitHub Actions CI/CD** pipeline for automated test runs on push
-- [ ] Expand coverage to Leave Management and Recruitment modules
-- [ ] Implement **parallel execution** via TestNG XML suite
+- [ ] Integrate **Extent Reports** with screenshots on scenario failure
+- [ ] Add **Data-Driven Testing** using Cucumber `Scenario Outline` + `Examples`
+- [ ] Add **REST Assured API automation** for OrangeHRM backend APIs
+- [ ] Set up **GitHub Actions CI/CD** pipeline to run tests on every push
+- [ ] Expand coverage to PIM and Leave Management modules
+- [ ] Implement **parallel execution** across feature files
 
 ---
 
