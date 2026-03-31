@@ -120,7 +120,7 @@ After execution, open the Cucumber HTML report generated inside the `target/` fo
 
 ## 📊 Sample Test Report
 
-> *(Add a screenshot of your Cucumber HTML report here after a test run)*
+> ![Test Report](assets/report-screenshot.png)
 
 ---
 
