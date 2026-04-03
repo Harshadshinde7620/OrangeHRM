@@ -61,12 +61,12 @@ Feature: Dashboard functionality
   Scenario Outline: Verify clickable usernames in Buzz Latest Posts widget
     Given Admin logs into the OrangeHRM portal using "Admin" , "admin123"
     And Admin navigates to the dashboard page
-    Then Verify "<userName>" is present as clickable user in Buzz Latest Posts widget
+    Then Verify "<userNames>" is present as clickable user in Buzz Latest Posts widget
 
     Examples: 
-      | userName       |
-      | Abel rama user |
-      | Abel rama user |
-      | Abel rama user |
-      | Abel rama user |
-      | Abel rama user |
+      | userNames                 |
+      | Ibrahim Mohammed Khamiss |
+      | Ibrahim Mohammed Khamiss |
+      #| Sania  Shaheen            |
+      #| Rebecca  Harmony          |
+      #| Russel  Hamilton          |

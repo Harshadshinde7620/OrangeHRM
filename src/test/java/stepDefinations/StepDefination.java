@@ -241,10 +241,18 @@ public class StepDefination {
     	buzzLatestPosts.BuzzLatestPostWidgetClickableLinks();
     }
     
+    //BuzzLatestPostWidgetClickableLinksAlongWithUsernames
     @Then("Verify {string} is present as clickable user in Buzz Latest Posts widget")
     public void verify_clickable_usernames(String userName) {
     	buzzLatestPosts= new BuzzLatestPosts(driver);
-    	buzzLatestPosts.BuzzLatestPostWidgetClickableLinksAlongWithUsernames(userName);
+    	
+    	//Now We have to find the list of actual users 
+    	List <String> actualUsers= buzzLatestPosts.getBuzzUsernames();
+    	
+    	System.out.println("UI users are: " + actualUsers);
+    	
+    	Assert.assertTrue(actualUsers.contains(userName), "User are not found in the Buzz widget :" +userName);
+    	
     }
 
 

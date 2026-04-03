@@ -20,7 +20,7 @@ public class BuzzLatestPosts {
 	private webUtils utils;
 	
 	//Element
-	private By buzzUsers_loc= By.xpath("//div[@class='orangehrm-buzz-widget-header']");	
+	private By buzzUsers_loc= By.xpath("//p[@class='oxd-text oxd-text--p orangehrm-buzz-widget-header-emp']");	
 	
 	//constructor
 	
@@ -42,16 +42,20 @@ public class BuzzLatestPosts {
 		return links.size();	
 	}
 	
-	public List<String> BuzzLatestPostWidgetClickableLinksAlongWithUsernames(String text) {
-		List<WebElement> links= driver.findElements(buzzUsers_loc);
+	public List<String> getBuzzUsernames() {
 		
+		List<WebElement> links= wait.until(ExpectedConditions.visibilityOfAllElementsLocatedBy(buzzUsers_loc));
 		List<String> names= new ArrayList<>();
 		
 		for(WebElement e: links) {
-			names.add(e.getText());
+			String text=e.getText().trim();
+			if(!text.isEmpty()) {
+			names.add(text);
 		}
+		}	
 		
 		return names;
 		
-	}
+	
+}
 }
