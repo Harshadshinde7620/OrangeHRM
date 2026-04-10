@@ -70,3 +70,26 @@ Feature: Dashboard functionality
       #| Sania  Shaheen            |
       #| Rebecca  Harmony          |
       #| Russel  Hamilton          |
+      
+   
+   #EmployeesOnLeaveToday
+    @EmployeesOnLeaveTodayEmptyMessgae
+  Scenario Outline: Verify message in the employees on Leave Today widget
+    Given Admin logs into the OrangeHRM portal using "Admin" , "admin123"
+    And Admin navigates to the dashboard page
+    Then Verify "<message>" present.
+    
+    Examples:
+    |message|
+    |No Employees are on Leave Today|
+    
+     @EmployeesOnLeaveTodayEmployeeName
+  Scenario Outline: Verify emplolyee name in the employees on Leave Today widget who are on leave
+    Given Admin logs into the OrangeHRM portal using "Admin" , "admin123"
+    And Admin navigates to the dashboard page
+    Then Verify "<employeeNames>" if it is present in the widget
+    
+    Examples:
+    |employeeNames|
+    |santosh user|
+   

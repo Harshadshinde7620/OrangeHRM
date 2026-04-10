@@ -15,6 +15,7 @@ import io.cucumber.java.en.When;
 import pageobjectmodel.SideMenuElementDashboard;
 import pageobjectmodel.loginPage;
 import pageobjectmodel.dashboard.BuzzLatestPosts;
+import pageobjectmodel.dashboard.EmployeesOnLeaveToday;
 import pageobjectmodel.dashboard.MyActions;
 import pageobjectmodel.dashboard.QuickLaunch;
 import pageobjectmodel.dashboard.TimeAtWorkWidget;
@@ -35,6 +36,8 @@ public class StepDefination {
 	private QuickLaunch quickLaunch;
 	
 	private BuzzLatestPosts buzzLatestPosts;
+	
+	private EmployeesOnLeaveToday employeesonLeaveToday;
 	
 	//Constructor
 	
@@ -255,5 +258,28 @@ public class StepDefination {
     	
     }
 
+    //EmployeesOnLeaveToday
+    
+    //EmployeesOnLeaveTodayEmptyMessgae
+    @Then("Verify {string} present.")
+    public void verify_present(String expectedMessage) { 
+    	employeesonLeaveToday= new EmployeesOnLeaveToday(driver);
+    	employeesonLeaveToday.EmployeesOnLeaveTodayEmptyMessgae(expectedMessage);
+    }
+    
+    
+    //EmployeesOnLeaveTodayEmployeeName
+    @Then("Verify {string} if it is present in the widget")
+    public void verifyEmployeeNameInLeaveWidget(String employeeName) {
+    
+    	employeesonLeaveToday = new EmployeesOnLeaveToday(driver);
+    	Boolean isPresent= employeesonLeaveToday.EmployeesOnLeaveTodayEmployeeName(employeeName);
+    	
+    	System.out.println("Employee on leave today is " + isPresent);
+    	
+        Assert.assertTrue(isPresent,
+                "❌ Employee NOT found in widget: " + employeeName);
+    }
 
+    
 }

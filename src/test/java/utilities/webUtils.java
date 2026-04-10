@@ -110,4 +110,9 @@ public class webUtils{
 		}
 		return texts;
 	}
+
+	public boolean isElementPresent(By element, int i) {
+		// TODO Auto-generated method stub
+		return false;
+	}
 }
