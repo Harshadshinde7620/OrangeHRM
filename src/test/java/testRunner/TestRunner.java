@@ -6,10 +6,10 @@ import io.cucumber.testng.CucumberOptions;
 @CucumberOptions(
 		features= "/Users/xenneotech/eclipse-workspace/OrangeHRMProject/src/test/java/features", 
 		glue= "stepDefinations",
-		tags="@EmployeesOnLeaveTodayEmptyMessgae",
+		tags="@AllMenuOptionsValidation",
 		plugin={
 				"pretty",                                    			// Console output
-		        "html:target/cucumber-reports-@EmployeesOnLeaveTodayEmptyMessgae.html",  // HTML report
+		        "html:target/cucumber-reports-@AllMenuOptionsValidation.html",  // HTML report
 		        "json:target/cucumber.json",                			// JSON report
 		        "junit:target/cucumber.xml"     },
 		monochrome = true,                               // Clean console output

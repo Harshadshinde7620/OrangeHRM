@@ -14,6 +14,7 @@ import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 import pageobjectmodel.SideMenuElementDashboard;
 import pageobjectmodel.loginPage;
+import pageobjectmodel.adminPage.AdminPage;
 import pageobjectmodel.dashboard.BuzzLatestPosts;
 import pageobjectmodel.dashboard.EmployeesOnLeaveToday;
 import pageobjectmodel.dashboard.MyActions;
@@ -38,6 +39,8 @@ public class StepDefination {
 	private BuzzLatestPosts buzzLatestPosts;
 	
 	private EmployeesOnLeaveToday employeesonLeaveToday;
+	
+	private AdminPage adminPage;
 	
 	//Constructor
 	
@@ -281,5 +284,49 @@ public class StepDefination {
                 "❌ Employee NOT found in widget: " + employeeName);
     }
 
+    
+    //Admin page
+    
+    //Admin Page sub module test cases
+    //AdminModuleNameVerification
+    @When("Admin clicks {string} and navigates to the Admin page")
+    public void admin_clicks_and_navigates_to_the_admin_page(String elementText) {
+    	sideMenuElement= new SideMenuElementDashboard(driver);    
+    	sideMenuElement.clickonSideMenuElement(elementText);
+    }
+
+    @Then("verfiies the main module name to be {string}")
+    public void verfiies_the_main_module_name_to_be(String expectedModule) {
+    	adminPage= new AdminPage(driver);
+    	
+    	String actaulModule= adminPage.getAdminModule();
+    	Assert.assertEquals(actaulModule, expectedModule);
+    }
+
+    //AdminSubModuleNameVerification
+    @Then("verfies the sub module name {string}")
+    public  void verify_sub_module_name(String expectedSubModule) {
+    	adminPage= new AdminPage(driver);
+    	String actualSubModule= adminPage.getAdminSubModuleName();
+    	System.out.println("Name of the sub module is " + actualSubModule);
+    	Assert.assertEquals(actualSubModule, expectedSubModule);
+    }
+  
+    // ------------------- ALL MENU OPTIONS -------------------
+    //AllMenuOptionsValidation
+    @Then("verify all admin menu options:")
+    public void verify_all_admin_menu_options(DataTable dataTable) {
+    	adminPage= new AdminPage(driver);
+    	
+    	List<String> actualOptions= dataTable.asList();
+    	List<String> expectedOptions= adminPage.getallOptions();
+    	
+    	System.out.println("Actual Options: " + actualOptions);
+    	System.out.println("Expected Options: " + expectedOptions);
+    	
+    	Assert.assertEquals(actualOptions, expectedOptions, "All Menu Mismatches");
+    }
+
+    
     
 }
