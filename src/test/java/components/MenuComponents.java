@@ -7,9 +7,9 @@ public class MenuComponents {
 	
 	private WebDriver driver;
 
-	private By allOptions = By.xpath("//li[contains(@class,'oxd-topbar-body-nav-tab')]//*[self::span or self::a]");
+	private By allOptions = By.xpath("//nav[contains(@class,'oxd-topbar-body-nav')]//li");;
 	private By dropdownOptions = By.xpath("//li[contains(@class,'--parent')]//span");
-	private By normalClickOptions = By.xpath("//li[not(contains(@class,'--parent'))]//a");
+	private By normalClickOptions = By.xpath("//nav[contains(@class,'oxd-topbar-body-nav')]//li//a");
 
 	public MenuComponents(WebDriver driver) {
 		this.driver = driver;

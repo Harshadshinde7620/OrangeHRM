@@ -5,6 +5,7 @@ import java.util.List;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
@@ -49,8 +50,19 @@ public class AdminPage {
 		return wait.until(ExpectedConditions.presenceOfElementLocated(usersubModuleName_loc)).getText();
 	}
 	
+	public WebElement waitForAdminSubModule() {
+		return wait.until(ExpectedConditions.presenceOfElementLocated(usersubModuleName_loc));
+	}
+	
 	public List<String> getallOptions(){
 		return menu.getAllOptions();
-		
+	}
+	
+	public List<String> getdropdownOptions(){
+		return menu.getDropDownOptions();
+	}
+	
+	public List<String> getclickableOptions(){
+		return menu.getnormalClickOptions();
 	}
 }

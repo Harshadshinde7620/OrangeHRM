@@ -1,6 +1,7 @@
 package stepDefinations;
 
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -291,8 +292,11 @@ public class StepDefination {
     //AdminModuleNameVerification
     @When("Admin clicks {string} and navigates to the Admin page")
     public void admin_clicks_and_navigates_to_the_admin_page(String elementText) {
-    	sideMenuElement= new SideMenuElementDashboard(driver);    
+    	sideMenuElement= new SideMenuElementDashboard(driver);   
+    	adminPage= new AdminPage(driver);
+    	
     	sideMenuElement.clickonSideMenuElement(elementText);
+    	adminPage.waitForAdminSubModule();
     }
 
     @Then("verfiies the main module name to be {string}")
@@ -314,17 +318,47 @@ public class StepDefination {
   
     // ------------------- ALL MENU OPTIONS -------------------
     //AllMenuOptionsValidation
-    @Then("verify all admin menu options:")
+    @Then("verify all admin menu options")
     public void verify_all_admin_menu_options(DataTable dataTable) {
     	adminPage= new AdminPage(driver);
     	
-    	List<String> actualOptions= dataTable.asList();
-    	List<String> expectedOptions= adminPage.getallOptions();
+    	List<String> expectedOptions= dataTable.asList();
+    	List<String> actualOptions= adminPage.getallOptions();
     	
-    	System.out.println("Actual Options: " + actualOptions);
-    	System.out.println("Expected Options: " + expectedOptions);
+    	//Collections.sort(expectedOptions);
+    	//Collections.sort(actualOptions);
+    	
+    	System.out.println("Actual Options(UI): " + actualOptions);
+    	System.out.println("Expected Options(Feature): " + expectedOptions);
+    	System.out.println("Actual Options Number(UI):" + actualOptions.size());
     	
     	Assert.assertEquals(actualOptions, expectedOptions, "All Menu Mismatches");
+    }
+    // ------------------- ALL DropDown OPTIONS -------------------
+    //DropdownOptionsValidation
+  
+    @Then("verify dropdown menu options")
+    public void verify_dropdown_menu_options(DataTable dataTable) {
+    	adminPage= new AdminPage(driver);
+    	
+    	List<String> expectedOptions= dataTable.asList();
+    	List<String> actualOptions= adminPage.getdropdownOptions();
+    	
+    	System.out.println("Actual Options [UI]: " + actualOptions);
+    	System.out.println("Expected Options[Feature]: " + expectedOptions);
+    	System.out.println("Actual Options [UI] size:" + actualOptions.size());
+    	
+    	Assert.assertEquals(actualOptions, expectedOptions, "All Menu Options Mismatches");
+    }
+    // ------------------- ALL DropDown OPTIONS -------------------
+    //NormalOptionsValidation
+    @Then("verify normal menu options")
+    public void verify_normal_menu_options(DataTable dataTable) {
+    	adminPage= new AdminPage(driver);
+    	List<String> expectedOptions= dataTable.asList();
+    	List<String> actualOptions= adminPage.getclickableOptions();
+    	
+    	Assert.assertEquals(actualOptions, expectedOptions, "All Menu Options Mismatches");
     }
 
     

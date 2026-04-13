@@ -13,13 +13,11 @@ Feature: Admin Page Functionality
     Then verfies the sub module name "User Management"
 
  #User Managemnet Options
+  @AllMenuOptionsValidation
+    Scenario: Verify all admin menu options are displayed correctly
     Given Admin logs into the OrangeHRM portal using "Admin" , "admin123"
     When Admin clicks "Admin" and navigates to the Admin page
-
-
-  @AllMenuOptionsValidation
-  Scenario: Verify all admin menu options are displayed correctly
-    Then verify all admin menu options:
+    Then verify all admin menu options
       | User Management    |
       | Job                |
       | Organization       |
@@ -31,7 +29,9 @@ Feature: Admin Page Functionality
 
   @DropdownOptionsValidation
   Scenario: Verify dropdown menu options in admin module
-    Then verify dropdown menu options:
+    Given Admin logs into the OrangeHRM portal using "Admin" , "admin123"
+    When Admin clicks "Admin" and navigates to the Admin page
+    Then verify dropdown menu options
       | User Management |
       | Job            |
       | Organization   |
@@ -41,7 +41,9 @@ Feature: Admin Page Functionality
 
   @NormalOptionsValidation
   Scenario: Verify normal clickable menu options in admin module
-    Then verify normal menu options:
+    Given Admin logs into the OrangeHRM portal using "Admin" , "admin123"
+    When Admin clicks "Admin" and navigates to the Admin page
+    Then verify normal menu options
       | Nationalities      |
       | Corporate Branding |
 
