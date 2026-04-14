@@ -360,7 +360,65 @@ public class StepDefination {
     	
     	Assert.assertEquals(actualOptions, expectedOptions, "All Menu Options Mismatches");
     }
+    //-------------------Get User Management DropDown Options----------
+    //UserManagmentDropDownOptions
+    @Then("I click on {string} module it should display the following options")
+    public void validateUserManagementDropdownOptions(String moduleName, DataTable dataTable) {
+    	adminPage= new AdminPage(driver);
+    	List<String> expectedOptions= dataTable.asList();
+    	List<String> actualOptions= adminPage.getSubModuleDropDownOptions(moduleName);	
+    	System.out.println("Actual Options [UI]: " + actualOptions);
+    	System.out.println("Expected Options[Feature]: " + expectedOptions);
+    	System.out.println("Actual Options [UI] size:" + actualOptions.size());
+    	
+    }
+    
+    //JobDropDownOptions
+    @Then("I click {string} module it should display the following options")
+    public void validateJobDropdownOptions(String moduleName, DataTable dataTable) {
+    	adminPage= new AdminPage(driver);
+    	List<String> expectedOptions= dataTable.asList();
+    	List<String> actualOptions= adminPage.getSubModuleDropDownOptions(moduleName);	
+    	System.out.println("Actual Options [UI]: " + actualOptions);
+    	System.out.println("Expected Options[Feature]: " + expectedOptions);
+    	System.out.println("Actual Options [UI] size:" + actualOptions.size());
+    	
+    }
+    //OrganizationDropdownOptions
+    @Then("I click {string} it should display the following options")
+    public void validateOrganizationDropdownOptions(String modulName, DataTable dataTable) {
+    	adminPage= new AdminPage(driver);
+    	List<String> expectedOptions= dataTable.asList();
+    	List<String> actualOptions= adminPage.getSubModuleDropDownOptions(modulName);	
+    	System.out.println("Actual Options [UI]: " + actualOptions);
+    	System.out.println("Expected Options[Feature]: " + expectedOptions);
+    	System.out.println("Actual Options [UI] size:" + actualOptions.size());
+    	
+    }
 
+    //QualificationsDropdownOptions
+    @Then("Click {string} it should display the following options")
+    public void click_qualifications_and_validate_options(String menuOption, io.cucumber.datatable.DataTable dataTable) {
+    	adminPage= new AdminPage(driver);
+    	List<String> expectedOptions= dataTable.asList();
+    	List<String> actualOptions= adminPage.getSubModuleDropDownOptions(menuOption);	
+    	System.out.println("Actual Options [UI]: " + actualOptions);
+    	System.out.println("Expected Options[Feature]: " + expectedOptions);
+    	System.out.println("Actual Options [UI] size:" + actualOptions.size());
+    }
+    
+    //ConfigurationDropdownOptions
+    @Then("Click on {string} then it should display the following options")
+    public void validate_configuration_dropdown(String menuOption, DataTable dataTable) {
+    	adminPage= new AdminPage(driver);
+    	List<String> expectedOptions= dataTable.asList();
+    	List<String> actualOptions= adminPage.getSubModuleDropDownOptions(menuOption);	
+    	System.out.println("Actual Options [UI]: " + actualOptions);
+    	System.out.println("Expected Options[Feature]: " + expectedOptions);
+    	System.out.println("Actual Options [UI] size:" + actualOptions.size());
+    }
+
+    
     
     
 }

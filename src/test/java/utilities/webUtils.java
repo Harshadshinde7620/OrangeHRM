@@ -62,6 +62,8 @@ public class webUtils{
 		return wait.until(ExpectedConditions.visibilityOfElementLocated(elementLocator));
 	}
 	
+	
+	
 	public WebElement getDashBoardElementWithText(String text) {
 		
 		By locator = By.xpath("//p[normalize-space()='" + text + "']");

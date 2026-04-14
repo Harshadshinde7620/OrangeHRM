@@ -9,16 +9,14 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
-import components.MenuComponents;
 import utilities.webUtils;
-
 public class AdminPage {
 
 	private WebDriver driver;
 	private webUtils utils;
 	private WebDriverWait wait;
 	
-	private MenuComponents menu;
+	private pageobjectmodel.adminPage.components.MenuComponents menu;
 	
 	
 	private By mainModuleName_loc= By.xpath("//span[@class='oxd-topbar-header-breadcrumb']//h6[text()='Admin']");
@@ -37,7 +35,7 @@ public class AdminPage {
 	    utils = new webUtils(driver);
 	    wait = new WebDriverWait(driver, Duration.ofSeconds(10));
 	    
-	    menu = new MenuComponents(driver); // ✅ CORRECT
+	    menu = new pageobjectmodel.adminPage.components.MenuComponents(driver); // ✅ CORRECT
 	}
 	
 	//ACtion Methods
@@ -64,5 +62,9 @@ public class AdminPage {
 	
 	public List<String> getclickableOptions(){
 		return menu.getnormalClickOptions();
+	}
+	
+	public List<String> getSubModuleDropDownOptions(String submodule){
+		return menu.getSubmoduleDropdownOptions(submodule);
 	}
 }

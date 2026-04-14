@@ -4,14 +4,15 @@ import io.cucumber.testng.AbstractTestNGCucumberTests;
 import io.cucumber.testng.CucumberOptions;
 
 @CucumberOptions(
-		features= "/Users/xenneotech/eclipse-workspace/OrangeHRMProject/src/test/java/features", 
+		features="src/test/java/features", 
 		glue= "stepDefinations",
-		tags="@NormalOptionsValidation",
+		tags="@ConfigurationDropdownOptions",
 		plugin={
 				"pretty",                                    			// Console output
-		        "html:target/cucumber-reports-@NormalOptionsValidation.html",  // HTML report
+		        "html:target/cucumber-reports-@ConfigurationDropdownOptions.html",  // HTML report
 		        "json:target/cucumber.json",                			// JSON report
-		        "junit:target/cucumber.xml"     },
+		        "junit:target/cucumber.xml"     
+		        },
 		monochrome = true,                               // Clean console output
 	    dryRun = false                                   // Check for missing step definitions
 	)
