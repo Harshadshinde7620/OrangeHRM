@@ -16,6 +16,7 @@ import io.cucumber.java.en.When;
 import pageobjectmodel.SideMenuElementDashboard;
 import pageobjectmodel.loginPage;
 import pageobjectmodel.adminPage.AdminPage;
+import pageobjectmodel.adminPage.UserManagement;
 import pageobjectmodel.dashboard.BuzzLatestPosts;
 import pageobjectmodel.dashboard.EmployeesOnLeaveToday;
 import pageobjectmodel.dashboard.MyActions;
@@ -42,6 +43,8 @@ public class StepDefination {
 	private EmployeesOnLeaveToday employeesonLeaveToday;
 	
 	private AdminPage adminPage;
+	
+	private UserManagement userManagement;
 	
 	//Constructor
 	
@@ -416,6 +419,16 @@ public class StepDefination {
     	System.out.println("Actual Options [UI]: " + actualOptions);
     	System.out.println("Expected Options[Feature]: " + expectedOptions);
     	System.out.println("Actual Options [UI] size:" + actualOptions.size());
+    }
+
+    //------------------------UserManagmentMOdule--------------------------------------------
+    //ValidateSystemUser
+    @Then("Check the {string}, {string}, {string}, {string}, {string}, {string}")
+    public void checkUserDetails(String username, String userRole, String suggestiveName, String employeeName, String status,
+                                 String result) {
+    	userManagement= new UserManagement(driver);
+    	userManagement.searchUser(username, userRole, suggestiveName, employeeName, status, result);
+    	
     }
 
     

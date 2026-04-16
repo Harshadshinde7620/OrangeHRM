@@ -97,6 +97,13 @@ Feature: Admin Page Functionality
       | Register OAuth Client        |
       | LDAP Configuration           |
 
-  @PrintMenuOptions
-  Scenario: Print all admin menu options for debugging
-    Then print all admin menu options
+  #UserManagements Test Cases
+  @ValidateSystemUser
+  Scenario Outline: Validate System User in User Management sub module
+    Given Admin logs into the OrangeHRM portal using "Admin" , "admin123"
+    When Admin clicks "Admin" and navigates to the Admin page
+    Then Check the "<Username>", "<UserRole>", "<Suggestive Name>", "<Employee Name>", "<Status>", "<Result>"
+
+    Examples: 
+      | Username | UserRole | Suggestive Name | Employee Name      | Status  | Result            |
+      | Admin    | Admin    | Leon            | Leon Scott Kennedy | Enabled | (1) Records Found |

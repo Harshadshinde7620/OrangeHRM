@@ -6,10 +6,10 @@ import io.cucumber.testng.CucumberOptions;
 @CucumberOptions(
 		features="src/test/java/features", 
 		glue= "stepDefinations",
-		tags="@ConfigurationDropdownOptions",
+		tags="@ValidateSystemUser",
 		plugin={
 				"pretty",                                    			// Console output
-		        "html:target/cucumber-reports-@ConfigurationDropdownOptions.html",  // HTML report
+		        "html:target/cucumber-reports-@ValidateSystemUser.html",  // HTML report
 		        "json:target/cucumber.json",                			// JSON report
 		        "junit:target/cucumber.xml"     
 		        },
